@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Cache",
+        "repositoryURL": "https://github.com/nipapadak/Cache",
+        "state": {
+          "branch": "branch-master-rb",
+          "revision": "4c0f7be7ce4be8a2fe129acf55215bd6caf3f715",
+          "version": null
+        }
+      },
+      {
+        "package": "Imaginary",
+        "repositoryURL": "https://github.com/nipapadak/Imaginary",
+        "state": {
+          "branch": "branch-master-rb",
+          "revision": "c3bd041fcdc54099fcc9a0b7c90676e5c47981a4",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
