@@ -74,9 +74,9 @@ open class HeaderView: UIView {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
         closeButton.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                              constant: safeAreaInsets.right - 17),
+                                              constant: safeAreaInsets.right - 27),
         closeButton.topAnchor.constraint(equalTo: topAnchor,
-                                         constant: safeAreaInsets.top + 20),
+                                         constant: safeAreaInsets.top + 20 + 10),
         closeButton.widthAnchor.constraint(equalToConstant: 30),
         closeButton.heightAnchor.constraint(equalToConstant: 30)
         ])
@@ -107,6 +107,7 @@ extension HeaderView: LayoutConfigurable {
 
     if #available(iOS 11, *) {
       topPadding = safeAreaInsets.top
+      closeButton.frame.origin.y = topPadding
     } else {
       topPadding = 0
       closeButton.frame.origin = CGPoint(x: frame.width - closeButton.frame.width - 17,
