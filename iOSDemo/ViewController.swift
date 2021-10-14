@@ -22,6 +22,11 @@ class ViewController: UIViewController {
     view.backgroundColor = UIColor.white
     view.addSubview(showButton)
     title = "Lightbox"
+    if #available(iOS 13.0, *) {
+        let image = UIImage(systemName: "xmark.circle.fill")
+        LightboxConfig.CloseButton.image = image
+        LightboxConfig.CloseButton.text = ""
+    }
   }
   
   // MARK: - Action methods
@@ -49,13 +54,7 @@ class ViewController: UIViewController {
         
         let controller = LightboxController(images: images)
         controller.dynamicBackground = true
-        if #available(iOS 13.0, *) {
-            let image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(.red,
-                                                                                renderingMode: .alwaysTemplate)
-            LightboxConfig.CloseButton.image = image
-            LightboxConfig.CloseButton.text = ""
-        }
-        
+
         present(controller, animated: true, completion: nil)
     }
 }

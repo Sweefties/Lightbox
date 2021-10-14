@@ -46,6 +46,13 @@ open class FooterView: UIView {
     _ = addGradientLayer(gradientColors)
 
     [pageLabel, infoLabel, separatorView].forEach { addSubview($0) }
+    infoLabel.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+        infoLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                           constant: safeAreaInsets.left + 17),
+        infoLabel.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                            constant: safeAreaInsets.right - 17)
+        ])
   }
 
   public required init?(coder aDecoder: NSCoder) {
@@ -101,10 +108,6 @@ open class FooterView: UIView {
     )
 
     infoLabel.frame.origin.y = separatorView.frame.minY - infoLabel.frame.height - 15
-    infoLabel.frame = CGRect(x: infoLabel.frame.origin.x,
-                             y: infoLabel.frame.origin.y,
-                             width: frame.width - 17 * 2,
-                             height: infoLabel.frame.height)
 
     resizeGradientLayer()
   }
