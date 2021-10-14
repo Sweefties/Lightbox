@@ -67,7 +67,7 @@ open class HeaderView: UIView {
   public init() {
     super.init(frame: CGRect.zero)
 
-    backgroundColor = UIColor.clear
+    backgroundColor = UIColor.red
 
     [closeButton, deleteButton].forEach { addSubview($0) }
     if #available(iOS 11, *) {
