@@ -1,6 +1,6 @@
 import UIKit
 
-protocol HeaderViewDelegate: class {
+protocol HeaderViewDelegate: AnyObject {
   func headerView(_ headerView: HeaderView, didPressDeleteButton deleteButton: UIButton)
   func headerView(_ headerView: HeaderView, didPressCloseButton closeButton: UIButton)
 }
@@ -101,7 +101,7 @@ extension HeaderView: LayoutConfigurable {
     }
 
     closeButton.frame.origin = CGPoint(
-      x: bounds.width - closeButton.frame.width - 17,
+      x: frame.width - closeButton.frame.width - 17,
       y: topPadding
     )
 

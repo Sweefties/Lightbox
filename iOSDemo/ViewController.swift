@@ -49,6 +49,12 @@ class ViewController: UIViewController {
         
         let controller = LightboxController(images: images)
         controller.dynamicBackground = true
+        if #available(iOS 13.0, *) {
+            let image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(.red,
+                                                                                renderingMode: .alwaysTemplate)
+            LightboxConfig.CloseButton.image = image
+            LightboxConfig.CloseButton.text = ""
+        }
         
         present(controller, animated: true, completion: nil)
     }

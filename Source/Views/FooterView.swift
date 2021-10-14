@@ -1,6 +1,6 @@
 import UIKit
 
-public protocol FooterViewDelegate: class {
+public protocol FooterViewDelegate: AnyObject {
 
   func footerView(_ footerView: FooterView, didExpand expanded: Bool)
 }
@@ -101,6 +101,10 @@ open class FooterView: UIView {
     )
 
     infoLabel.frame.origin.y = separatorView.frame.minY - infoLabel.frame.height - 15
+    infoLabel.frame = CGRect(x: infoLabel.frame.origin.x,
+                             y: infoLabel.frame.origin.y,
+                             width: frame.width - 17 * 2,
+                             height: infoLabel.frame.height)
 
     resizeGradientLayer()
   }
