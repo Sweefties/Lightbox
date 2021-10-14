@@ -11,7 +11,7 @@ open class HeaderView: UIView {
       string: LightboxConfig.CloseButton.text,
       attributes: LightboxConfig.CloseButton.textAttributes)
 
-    let button = UIButton(type: .system)
+      let button = UIButton(type: .custom)
 
     button.setAttributedTitle(title, for: UIControl.State())
 
@@ -76,7 +76,9 @@ open class HeaderView: UIView {
         closeButton.trailingAnchor.constraint(equalTo: trailingAnchor,
                                               constant: safeAreaInsets.right - 17),
         closeButton.topAnchor.constraint(equalTo: topAnchor,
-                                         constant: safeAreaInsets.top + 12)
+                                         constant: safeAreaInsets.top + 20),
+        closeButton.widthAnchor.constraint(equalToConstant: 30),
+        closeButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
   }
