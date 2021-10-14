@@ -187,7 +187,7 @@ open class LightboxController: UIViewController {
 
   open override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    self.view.invalidateIntrinsicContentSize() // test 
+    self.view.invalidateIntrinsicContentSize()
     scrollView.frame = view.bounds
     footerView.frame.size = CGSize(
       width: view.bounds.width,
