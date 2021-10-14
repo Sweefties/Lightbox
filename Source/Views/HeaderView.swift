@@ -70,13 +70,15 @@ open class HeaderView: UIView {
     backgroundColor = UIColor.clear
 
     [closeButton, deleteButton].forEach { addSubview($0) }
-    closeButton.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
+    if #available(iOS 11, *) {
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
         closeButton.trailingAnchor.constraint(equalTo: trailingAnchor,
                                               constant: safeAreaInsets.right - 17),
         closeButton.topAnchor.constraint(equalTo: topAnchor,
                                          constant: safeAreaInsets.top + 12)
-         ])
+        ])
+    }
   }
 
   public required init?(coder aDecoder: NSCoder) {
@@ -105,12 +107,10 @@ extension HeaderView: LayoutConfigurable {
       topPadding = safeAreaInsets.top
     } else {
       topPadding = 0
+      closeButton.frame.origin = CGPoint(x: frame.width - closeButton.frame.width - 17,
+                                         y: topPadding
+      )
     }
-
-//    closeButton.frame.origin = CGPoint(
-//      x: frame.width - closeButton.frame.width - 17,
-//      y: topPadding
-//    )
 
     deleteButton.frame.origin = CGPoint(
       x: 17,
