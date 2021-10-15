@@ -11,7 +11,7 @@ final class AssetManager {
     }
     
     private static func storyboard(named: String) -> UIStoryboard? {
-        UIStoryboard(name: named, bundle: bundle)
+        UIStoryboard(name: named, bundle: BundleToken.bundle)
     }
 
     private enum Scene: String {
@@ -34,3 +34,15 @@ public enum LightBox {
         AssetManager.viewController()
     }
 }
+
+// swiftlint:disable convenience_type
+private final class BundleToken {
+  static let bundle: Bundle = {
+    #if SWIFT_PACKAGE
+    return Bundle.module
+    #else
+    return Bundle(for: BundleToken.self)
+    #endif
+  }()
+}
+// swiftlint:enable convenience_type
