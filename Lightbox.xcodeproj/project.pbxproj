@@ -19,6 +19,7 @@
 		7E57644E2718F19700975A59 /* LightboxControllerDismissalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E57644B2718F17400975A59 /* LightboxControllerDismissalDelegate.swift */; };
 		7E5764512719058D00975A59 /* Imaginary in Frameworks */ = {isa = PBXBuildFile; productRef = 7E5764502719058D00975A59 /* Imaginary */; };
 		7E57645427190CD400975A59 /* Lightbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E57645327190CD400975A59 /* Lightbox.storyboard */; };
+		7E5764572719179A00975A59 /* HeaderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5764562719179A00975A59 /* HeaderViewDelegate.swift */; };
 		D22006741DFB4D9700E92898 /* Lightbox.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D22006731DFB4D9700E92898 /* Lightbox.bundle */; };
 		D2258CC4215CD035005A9A1C /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2258CC3215CD035005A9A1C /* Color+Extensions.swift */; };
 		D2D71BBC1D54DA77006AB907 /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D71BBB1D54DA77006AB907 /* AssetManager.swift */; };
@@ -28,7 +29,6 @@
 		D54DFCBE1C5AAAD600ADEA0E /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54DFCBC1C5AAAD600ADEA0E /* InfoLabel.swift */; };
 		D54DFCBF1C5AAAD600ADEA0E /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54DFCBD1C5AAAD600ADEA0E /* PageView.swift */; };
 		D56F15C81E0AB79800F128AF /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F15C71E0AB79800F128AF /* LoadingIndicator.swift */; };
-		D573A2F01C5B5605006053DD /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573A2EF1C5B5605006053DD /* HeaderView.swift */; };
 		D573A2F31C5B5C7B006053DD /* LayoutConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573A2F21C5B5C7B006053DD /* LayoutConfigurable.swift */; };
 		D573A2F51C5B5CA4006053DD /* LightboxTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573A2F41C5B5CA4006053DD /* LightboxTransition.swift */; };
 		D573A2F71C5B5E55006053DD /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573A2F61C5B5E55006053DD /* UIView+Gradient.swift */; };
@@ -71,6 +71,7 @@
 		7E57644A2718F17400975A59 /* LightboxControllerTouchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightboxControllerTouchDelegate.swift; sourceTree = "<group>"; };
 		7E57644B2718F17400975A59 /* LightboxControllerDismissalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightboxControllerDismissalDelegate.swift; sourceTree = "<group>"; };
 		7E57645327190CD400975A59 /* Lightbox.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Lightbox.storyboard; path = Source/Files/Lightbox.storyboard; sourceTree = "<group>"; };
+		7E5764562719179A00975A59 /* HeaderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HeaderViewDelegate.swift; path = Source/Library/Logics/HeaderViewDelegate.swift; sourceTree = "<group>"; };
 		D22006731DFB4D9700E92898 /* Lightbox.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Lightbox.bundle; sourceTree = "<group>"; };
 		D2258CC3215CD035005A9A1C /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		D2A58F5D1F7943A30064F14E /* Imaginary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Imaginary.framework; path = Carthage/Build/iOS/Imaginary.framework; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 		D523B09F1C43AA2A001AD1EC = {
 			isa = PBXGroup;
 			children = (
+				7E5764562719179A00975A59 /* HeaderViewDelegate.swift */,
 				7E57645327190CD400975A59 /* Lightbox.storyboard */,
 				D22006721DFB4D9700E92898 /* Resources */,
 				D523B0B41C43AA8A001AD1EC /* Source */,
@@ -349,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E5764572719179A00975A59 /* HeaderViewDelegate.swift in Sources */,
 				7E57644C2718F19700975A59 /* LightboxControllerPageDelegate.swift in Sources */,
 				7E57644D2718F19700975A59 /* LightboxControllerTouchDelegate.swift in Sources */,
 				7E57644E2718F19700975A59 /* LightboxControllerDismissalDelegate.swift in Sources */,
@@ -361,7 +364,6 @@
 				D523B0BE1C43AA8B001AD1EC /* LightboxController.swift in Sources */,
 				D54DFCBE1C5AAAD600ADEA0E /* InfoLabel.swift in Sources */,
 				D58A18CB1C5ABF8F000024BB /* FooterView.swift in Sources */,
-				D573A2F01C5B5605006053DD /* HeaderView.swift in Sources */,
 				D573A2F51C5B5CA4006053DD /* LightboxTransition.swift in Sources */,
 				D2258CC4215CD035005A9A1C /* Color+Extensions.swift in Sources */,
 				166E3BA920333E04006799C1 /* LightboxImageStub.swift in Sources */,

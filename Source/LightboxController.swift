@@ -1,7 +1,7 @@
 import UIKit
 
 open class LightboxController: UIViewController {
-    @IBOutlet private weak var stackView: UIStackView!
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet private weak var deleteButton: UIButton! {
         didSet {
             deleteButton.setTitle(nil, for: UIControl.State())
@@ -43,12 +43,12 @@ open class LightboxController: UIViewController {
     
     @objc
     private func didDismissScene() {
-        headerView(headerView, didPressCloseButton: closeButton)
+        didPressCloseButton(closeButton: closeButton)
     }
 
     @objc
     private func didDelete() {
-        headerView(headerView, didPressDeleteButton: deleteButton)
+        didPressDeleteButton(deleteButton: deleteButton)
     }
 
     // MARK: - Internal views
@@ -86,13 +86,6 @@ open class LightboxController: UIViewController {
     }()
     
     // MARK: - Public views
-    
-    open fileprivate(set) lazy var headerView: HeaderView = { [unowned self] in
-        let view = HeaderView()
-        view.delegate = self
-        
-        return view
-    }()
     
     open fileprivate(set) lazy var footerView: FooterView = { [unowned self] in
         let view = FooterView()
@@ -201,18 +194,17 @@ open class LightboxController: UIViewController {
         // Lightbox hasn't been optimized to be used in presentation styles other than fullscreen.
         modalPresentationStyle = .fullScreen
         
-        statusBarHidden = UIApplication.shared.isStatusBarHidden
+        statusBarHidden = prefersStatusBarHidden
         
         view.backgroundColor = UIColor.black
         transitionManager.lightboxController = self
         transitionManager.scrollView = scrollView
         transitioningDelegate = transitionManager
         
-        [scrollView, overlayView, headerView, footerView].forEach { view.addSubview($0) }
+        [scrollView, overlayView, footerView].forEach { view.addSubview($0) }
 
         // new ..
         view.bringSubviewToFront(stackView)
-        headerView.isHidden = true
         // end new..
 
         overlayView.addGestureRecognizer(overlayTapGestureRecognizer)
@@ -234,13 +226,6 @@ open class LightboxController: UIViewController {
         footerView.frame.origin = CGPoint(
             x: 0,
             y: view.bounds.height - footerView.frame.height
-        )
-        
-        headerView.frame = CGRect(
-            x: 0,
-            y: 16,
-            width: view.bounds.width,
-            height: 100
         )
         
         if !presented {
@@ -349,7 +334,7 @@ open class LightboxController: UIViewController {
             }
         }
         
-        [headerView, footerView].forEach { ($0 as AnyObject).configureLayout() }
+        [footerView].forEach { ($0 as AnyObject).configureLayout() }
         
         overlayView.frame = scrollView.frame
         overlayView.resizeGradientLayer()
@@ -366,7 +351,7 @@ open class LightboxController: UIViewController {
         pageView?.playButton.isHidden = !visible
         
         UIView.animate(withDuration: duration, delay: delay, options: [], animations: {
-            self.headerView.alpha = alpha
+            self.stackView.alpha = alpha
             self.footerView.alpha = alpha
             pageView?.playButton.alpha = alpha
         }, completion: nil)
@@ -447,7 +432,7 @@ extension LightboxController: PageViewDelegate {
         
         imageTouchDelegate?.lightboxController(self, didTouch: images[currentPage], at: currentPage)
         
-        let visible = (headerView.alpha == 1.0)
+        let visible = (stackView.alpha == 1.0)
         toggleControls(pageView: pageView, visible: !visible)
     }
 }
@@ -455,13 +440,13 @@ extension LightboxController: PageViewDelegate {
 // MARK: - HeaderViewDelegate
 
 extension LightboxController: HeaderViewDelegate {
-    
-    func headerView(_ headerView: HeaderView, didPressDeleteButton deleteButton: UIButton) {
+
+    func didPressDeleteButton(deleteButton: UIButton) {
         deleteButton.isEnabled = false
         
         guard numberOfPages != 1 else {
             pageViews.removeAll()
-            self.headerView(headerView, didPressCloseButton: headerView.closeButton)
+            didPressCloseButton(closeButton: closeButton)
             return
         }
         
@@ -483,8 +468,8 @@ extension LightboxController: HeaderViewDelegate {
             deleteButton.isEnabled = true
         }
     }
-    
-    @objc func headerView(_ headerView: HeaderView, didPressCloseButton closeButton: UIButton) {
+
+    func didPressCloseButton(closeButton: UIButton) {
         closeButton.isEnabled = false
         presented = false
         dismissalDelegate?.lightboxControllerWillDismiss(self)
@@ -499,7 +484,7 @@ extension LightboxController: FooterViewDelegate {
     public func footerView(_ footerView: FooterView, didExpand expanded: Bool) {
         UIView.animate(withDuration: 0.25, animations: {
             self.overlayView.alpha = expanded ? 1.0 : 0.0
-            self.headerView.deleteButton.alpha = expanded ? 0.0 : 1.0
+            self.deleteButton.alpha = expanded ? 0.0 : 1.0
         })
     }
 }
