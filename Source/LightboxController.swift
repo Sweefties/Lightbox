@@ -109,6 +109,8 @@ open class LightboxController: UIViewController {
         label.textColor = LightboxConfig.InfoLabel.textColor
         label.isUserInteractionEnabled = true
         label.delegate = self
+        // set constraint
+        label.heightConstraint?.constant = 35
         
         return label
     }()
@@ -546,13 +548,22 @@ extension LightboxController: InfoLabelDelegate {
         bottomGradientView.removeGradientLayer() :
         bottomGradientView.addGradientLayer(gradientColors)
         // update expand
-        footerView(didExpand: expanded)
+        footerView(didExpand: expanded, height: infoLabel.frame.height)
     }
 
-    private func footerView(didExpand expanded: Bool) {
+    private func footerView(didExpand expanded: Bool, height: CGFloat) {
         UIView.animate(withDuration: 0.25, animations: {
             self.overlayView.alpha = expanded ? 1.0 : 0.0
             self.deleteButton.alpha = expanded ? 0.0 : 1.0
+        })
+        updateConstraintsForInfoLabel(expanded: expanded, height: height)
+    }
+
+    private func updateConstraintsForInfoLabel(expanded: Bool, height: CGFloat) {
+        infoLabel.heightConstraint?.constant = height
+        UIView.animate(withDuration: 0.25, animations: {
+            self.infoLabel.setNeedsLayout()
+            self.infoLabel.updateConstraintsIfNeeded()
         })
     }
 }
@@ -590,4 +601,27 @@ extension LightboxController: LayoutConfigurable {
         infoLabel.frame = CGRect(x: 0, y: 0, width: bottomEmbeddedStackView.frame.width - 17 * 2, height: 35)
         infoLabel.configureLayout()
     }
+}
+
+// MARK: - Utils for Constraints
+extension UIView {
+    
+    var heightConstraint: NSLayoutConstraint? {
+        get {
+            return constraints.first(where: {
+                $0.firstAttribute == .height && $0.relation == .equal
+            })
+        }
+        set { setNeedsLayout() }
+    }
+    
+    var widthConstraint: NSLayoutConstraint? {
+        get {
+            return constraints.first(where: {
+                $0.firstAttribute == .width && $0.relation == .equal
+            })
+        }
+        set { setNeedsLayout() }
+    }
+    
 }
