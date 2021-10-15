@@ -41,7 +41,6 @@ open class LightboxController: UIViewController {
         }
     }
     
-
     @objc
     private func didDismissScene() {
         headerView(headerView, didPressCloseButton: closeButton)
@@ -181,9 +180,18 @@ open class LightboxController: UIViewController {
     var pageViews = [PageView]()
     var statusBarHidden = false
     
-    public var initialImages: [LightboxImage] = []
-    public var initialPage: Int = 0
-    
+    private var initialImages: [LightboxImage] = []
+    private var initialPage: Int = 0
+
+    public static func initialize(initialImages: [LightboxImage] = [],
+                                  initialPage: Int = 0) -> LightboxController {
+        let vc = LightBox.controller()
+        vc.modalPresentationStyle = .fullScreen
+        vc.initialImages = initialImages
+        vc.initialPage = initialPage
+        return vc
+    }
+
     // MARK: - View lifecycle
     
     open override func viewDidLoad() {

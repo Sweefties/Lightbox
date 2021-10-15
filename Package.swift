@@ -25,7 +25,3 @@ let package = Package(
     ],
     swiftLanguageVersions: [.v5]
 )
-
-/*
- manifest property 'defaultLocalization' not set; it is required in the presence of localized resources
- */

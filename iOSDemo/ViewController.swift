@@ -51,8 +51,7 @@ final class ViewController: UIViewController {
             )
         ]
         
-        let controller = LightBox.controller()
-        controller.images = images
+        let controller = LightboxController.initialize(initialImages: images, initialPage: 0)
         // present scene
         present(controller, animated: true, completion: nil)
     }
