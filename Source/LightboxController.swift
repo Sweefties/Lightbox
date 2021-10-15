@@ -181,21 +181,8 @@ open class LightboxController: UIViewController {
     var pageViews = [PageView]()
     var statusBarHidden = false
     
-    private var initialImages: [LightboxImage] = []
-    private var initialPage: Int = 0
-    
-    // MARK: - Initializers
-    
-    public init(images: [LightboxImage] = [],
-                startIndex index: Int = 0) {
-        self.initialImages = images
-        self.initialPage = index
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
+    public var initialImages: [LightboxImage] = []
+    public var initialPage: Int = 0
     
     // MARK: - View lifecycle
     
