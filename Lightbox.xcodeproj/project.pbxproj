@@ -15,6 +15,10 @@
 		44E6A6652495C0EB00543CF0 /* Lightbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D523B0A91C43AA2A001AD1EC /* Lightbox.framework */; };
 		44E6A6662495C0EB00543CF0 /* Lightbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D523B0A91C43AA2A001AD1EC /* Lightbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7E5764422718778B00975A59 /* Imaginary in Frameworks */ = {isa = PBXBuildFile; productRef = 7E5764412718778B00975A59 /* Imaginary */; };
+		7E5764462718EC9B00975A59 /* Lightbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E5764452718EC9B00975A59 /* Lightbox.storyboard */; };
+		7E57644C2718F19700975A59 /* LightboxControllerPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5764492718F17400975A59 /* LightboxControllerPageDelegate.swift */; };
+		7E57644D2718F19700975A59 /* LightboxControllerTouchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E57644A2718F17400975A59 /* LightboxControllerTouchDelegate.swift */; };
+		7E57644E2718F19700975A59 /* LightboxControllerDismissalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E57644B2718F17400975A59 /* LightboxControllerDismissalDelegate.swift */; };
 		D22006741DFB4D9700E92898 /* Lightbox.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D22006731DFB4D9700E92898 /* Lightbox.bundle */; };
 		D2258CC4215CD035005A9A1C /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2258CC3215CD035005A9A1C /* Color+Extensions.swift */; };
 		D2D71BBC1D54DA77006AB907 /* AssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D71BBB1D54DA77006AB907 /* AssetManager.swift */; };
@@ -63,6 +67,10 @@
 		44E6A6552495BFAC00543CF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44E6A6572495BFAC00543CF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44E6A65B2495BFD400543CF0 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7E5764452718EC9B00975A59 /* Lightbox.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Lightbox.storyboard; sourceTree = "<group>"; };
+		7E5764492718F17400975A59 /* LightboxControllerPageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightboxControllerPageDelegate.swift; sourceTree = "<group>"; };
+		7E57644A2718F17400975A59 /* LightboxControllerTouchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightboxControllerTouchDelegate.swift; sourceTree = "<group>"; };
+		7E57644B2718F17400975A59 /* LightboxControllerDismissalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightboxControllerDismissalDelegate.swift; sourceTree = "<group>"; };
 		D22006731DFB4D9700E92898 /* Lightbox.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Lightbox.bundle; sourceTree = "<group>"; };
 		D2258CC3215CD035005A9A1C /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		D2A58F5D1F7943A30064F14E /* Imaginary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Imaginary.framework; path = Carthage/Build/iOS/Imaginary.framework; sourceTree = "<group>"; };
@@ -114,6 +122,16 @@
 			path = iOSDemo;
 			sourceTree = "<group>";
 		};
+		7E5764482718F17400975A59 /* Logics */ = {
+			isa = PBXGroup;
+			children = (
+				7E5764492718F17400975A59 /* LightboxControllerPageDelegate.swift */,
+				7E57644A2718F17400975A59 /* LightboxControllerTouchDelegate.swift */,
+				7E57644B2718F17400975A59 /* LightboxControllerDismissalDelegate.swift */,
+			);
+			path = Logics;
+			sourceTree = "<group>";
+		};
 		D22006721DFB4D9700E92898 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +151,7 @@
 		D523B09F1C43AA2A001AD1EC = {
 			isa = PBXGroup;
 			children = (
+				7E5764452718EC9B00975A59 /* Lightbox.storyboard */,
 				D22006721DFB4D9700E92898 /* Resources */,
 				D523B0B41C43AA8A001AD1EC /* Source */,
 				D523B0AB1C43AA2A001AD1EC /* Lightbox */,
@@ -190,6 +209,7 @@
 		D573A2F11C5B5C72006053DD /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				7E5764482718F17400975A59 /* Logics */,
 				D573A2F41C5B5CA4006053DD /* LightboxTransition.swift */,
 				D573A2F21C5B5C7B006053DD /* LayoutConfigurable.swift */,
 				D573A2F61C5B5E55006053DD /* UIView+Gradient.swift */,
@@ -308,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D22006741DFB4D9700E92898 /* Lightbox.bundle in Resources */,
+				7E5764462718EC9B00975A59 /* Lightbox.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +348,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E57644C2718F19700975A59 /* LightboxControllerPageDelegate.swift in Sources */,
+				7E57644D2718F19700975A59 /* LightboxControllerTouchDelegate.swift in Sources */,
+				7E57644E2718F19700975A59 /* LightboxControllerDismissalDelegate.swift in Sources */,
 				D56F15C81E0AB79800F128AF /* LoadingIndicator.swift in Sources */,
 				D54DFCBF1C5AAAD600ADEA0E /* PageView.swift in Sources */,
 				D573A2F71C5B5E55006053DD /* UIView+Gradient.swift in Sources */,
@@ -381,7 +405,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = iOSDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -411,7 +435,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = iOSDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -552,7 +576,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Lightbox/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -578,7 +602,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Lightbox/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
