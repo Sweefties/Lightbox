@@ -52,6 +52,7 @@ final class ViewController: UIViewController {
         ]
         
         let controller = LightboxController.initialize(initialImages: images, initialPage: 0)
+        controller.dynamicBackground = true
         // present scene
         present(controller, animated: true, completion: nil)
     }

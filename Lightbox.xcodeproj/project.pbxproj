@@ -32,7 +32,6 @@
 		D573A2F31C5B5C7B006053DD /* LayoutConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573A2F21C5B5C7B006053DD /* LayoutConfigurable.swift */; };
 		D573A2F51C5B5CA4006053DD /* LightboxTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573A2F41C5B5CA4006053DD /* LightboxTransition.swift */; };
 		D573A2F71C5B5E55006053DD /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D573A2F61C5B5E55006053DD /* UIView+Gradient.swift */; };
-		D58A18CB1C5ABF8F000024BB /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58A18CA1C5ABF8F000024BB /* FooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -363,7 +362,6 @@
 				D5026B3C1C5BF3FD003BC1A3 /* LightboxImage.swift in Sources */,
 				D523B0BE1C43AA8B001AD1EC /* LightboxController.swift in Sources */,
 				D54DFCBE1C5AAAD600ADEA0E /* InfoLabel.swift in Sources */,
-				D58A18CB1C5ABF8F000024BB /* FooterView.swift in Sources */,
 				D573A2F51C5B5CA4006053DD /* LightboxTransition.swift in Sources */,
 				D2258CC4215CD035005A9A1C /* Color+Extensions.swift in Sources */,
 				166E3BA920333E04006799C1 /* LightboxImageStub.swift in Sources */,

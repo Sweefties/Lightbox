@@ -2,6 +2,22 @@ import UIKit
 
 open class LightboxController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    @IBOutlet weak var bottomGradientView: UIView! {
+        didSet {
+            bottomGradientView.backgroundColor = .clear
+            _ = bottomGradientView.addGradientLayer(gradientColors)
+        }
+    }
+    @IBOutlet weak var bottomEmbeddedStackView: UIStackView! {
+        didSet {
+            bottomEmbeddedStackView.addArrangedSubview(infoLabel)
+            bottomEmbeddedStackView.addArrangedSubview(separatorView)
+            bottomEmbeddedStackView.addArrangedSubview(pageLabel)
+            separatorView.widthAnchor.constraint(equalTo: bottomEmbeddedStackView.widthAnchor, constant: 0).isActive = true
+        }
+    }
+
     @IBOutlet private weak var deleteButton: UIButton! {
         didSet {
             deleteButton.setTitle(nil, for: UIControl.State())
@@ -86,11 +102,36 @@ open class LightboxController: UIViewController {
     }()
     
     // MARK: - Public views
-    
-    open fileprivate(set) lazy var footerView: FooterView = { [unowned self] in
-        let view = FooterView()
-        view.delegate = self
+
+    open fileprivate(set) lazy var infoLabel: InfoLabel = { [unowned self] in
+        let label = InfoLabel(text: "")
+        label.isHidden = !LightboxConfig.InfoLabel.enabled
+        label.textColor = LightboxConfig.InfoLabel.textColor
+        label.isUserInteractionEnabled = true
+        label.delegate = self
         
+        return label
+    }()
+
+    open fileprivate(set) lazy var pageLabel: UILabel = { [unowned self] in
+        let label = UILabel(frame: .zero)
+        label.isHidden = !LightboxConfig.PageIndicator.enabled
+        label.numberOfLines = 1
+
+        label.attributedText = NSAttributedString(string: label.text ?? "",
+                                                  attributes: LightboxConfig.PageIndicator.textAttributes)
+        label.sizeToFit()
+        return label
+    }()
+    
+    open fileprivate(set) lazy var separatorView: UIView = { [unowned self] in
+        let view = UIView(frame: .zero)
+        view.isHidden = !LightboxConfig.PageIndicator.enabled
+        view.backgroundColor = LightboxConfig.PageIndicator.separatorColor
+        view.frame = CGRect(x: 0, y: 0, width: bottomEmbeddedStackView.bounds.width, height: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 1.0).isActive = true
+
         return view
     }()
     
@@ -106,12 +147,12 @@ open class LightboxController: UIViewController {
     }()
     
     // MARK: - Properties
-    
+
     open fileprivate(set) var currentPage = 0 {
         didSet {
             currentPage = min(numberOfPages - 1, max(0, currentPage))
-            footerView.updatePage(currentPage + 1, numberOfPages)
-            footerView.updateText(pageViews[currentPage].image.text)
+            updatePage(currentPage + 1, numberOfPages)
+            updateText(pageViews[currentPage].image.text)
             
             if currentPage == numberOfPages - 1 {
                 seen = true
@@ -122,8 +163,8 @@ open class LightboxController: UIViewController {
             pageDelegate?.lightboxController(self, didMoveToPage: currentPage)
             
             if let image = pageViews[currentPage].imageView.image, dynamicBackground {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.125) {
-                    self.loadDynamicBackground(image)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.125) { [weak self] in
+                    self?.loadDynamicBackground(image)
                 }
             }
         }
@@ -172,6 +213,7 @@ open class LightboxController: UIViewController {
     lazy var transitionManager: LightboxTransition = LightboxTransition()
     var pageViews = [PageView]()
     var statusBarHidden = false
+    private let gradientColors = [UIColor(hex: "040404").withAlphaComponent(0.1), UIColor(hex: "040404")]
     
     private var initialImages: [LightboxImage] = []
     private var initialPage: Int = 0
@@ -189,51 +231,66 @@ open class LightboxController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // 9 July 2020: @3lvis
         // Lightbox hasn't been optimized to be used in presentation styles other than fullscreen.
         modalPresentationStyle = .fullScreen
-        
+
         statusBarHidden = prefersStatusBarHidden
-        
+
         view.backgroundColor = UIColor.black
         transitionManager.lightboxController = self
         transitionManager.scrollView = scrollView
         transitioningDelegate = transitionManager
-        
-        [scrollView, overlayView, footerView].forEach { view.addSubview($0) }
 
-        // new ..
+        [scrollView, overlayView].forEach { view.addSubview($0) }
         view.bringSubviewToFront(stackView)
-        // end new..
+        view.bringSubviewToFront(bottomGradientView)
+        view.bringSubviewToFront(bottomStackView)
 
         overlayView.addGestureRecognizer(overlayTapGestureRecognizer)
-        
+
         configurePages(initialImages)
-        
+
         goTo(initialPage, animated: false)
     }
     
     open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.view.invalidateIntrinsicContentSize()
+        bottomGradientView.resizeGradientLayer()
+        // self.view.invalidateIntrinsicContentSize()
         scrollView.frame = view.bounds
-        footerView.frame.size = CGSize(
-            width: view.bounds.width,
-            height: 100
-        )
-        
-        footerView.frame.origin = CGPoint(
-            x: 0,
-            y: view.bounds.height - footerView.frame.height
-        )
-        
+        // relayout()
         if !presented {
             presented = true
             configureLayout(view.bounds.size)
         }
     }
-    
+
+    private func relayout() {
+        do {
+            let bottomPadding: CGFloat
+            if #available(iOS 11, *) {
+                bottomPadding = bottomEmbeddedStackView.safeAreaInsets.bottom
+            } else {
+                bottomPadding = 0
+            }
+            
+            pageLabel.frame.origin = CGPoint(
+                x: (bottomEmbeddedStackView.frame.width - pageLabel.frame.width) / 2,
+                y: bottomEmbeddedStackView.frame.height - pageLabel.frame.height - 2 - bottomPadding
+            )
+        }
+        separatorView.frame = CGRect(
+            x: 0,
+            y: pageLabel.frame.minY - 2.5,
+            width: bottomStackView.frame.width,
+            height: 0.5
+        )
+        
+        infoLabel.frame.origin.y = separatorView.frame.minY - infoLabel.frame.height - 15
+    }
+
     open override var prefersStatusBarHidden: Bool {
         return LightboxConfig.hideStatusBar
     }
@@ -312,7 +369,7 @@ open class LightboxController: UIViewController {
     // MARK: - Actions
     
     @objc func overlayViewDidTap(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        footerView.expand(false)
+        expand(false)
     }
     
     // MARK: - Layout
@@ -334,8 +391,7 @@ open class LightboxController: UIViewController {
             }
         }
         
-        [footerView].forEach { ($0 as AnyObject).configureLayout() }
-        
+        configureLayout()
         overlayView.frame = scrollView.frame
         overlayView.resizeGradientLayer()
     }
@@ -352,7 +408,7 @@ open class LightboxController: UIViewController {
         
         UIView.animate(withDuration: duration, delay: delay, options: [], animations: {
             self.stackView.alpha = alpha
-            self.footerView.alpha = alpha
+            self.bottomEmbeddedStackView.alpha = alpha
             pageView?.playButton.alpha = alpha
         }, completion: nil)
     }
@@ -377,8 +433,9 @@ open class LightboxController: UIViewController {
 // MARK: - UIScrollViewDelegate
 
 extension LightboxController: UIScrollViewDelegate {
-    
-    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+                                          withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         var speed: CGFloat = velocity.x < 0 ? -2 : 2
         
         if velocity.x == 0 {
@@ -462,7 +519,10 @@ extension LightboxController: HeaderViewDelegate {
         self.initialImages.remove(at: prevIndex)
         self.pageViews.remove(at: prevIndex).removeFromSuperview()
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+            guard let self = self else {
+                return
+            }
             self.configureLayout(self.view.bounds.size)
             self.currentPage = Int(self.scrollView.contentOffset.x / self.view.bounds.width)
             deleteButton.isEnabled = true
@@ -477,14 +537,57 @@ extension LightboxController: HeaderViewDelegate {
     }
 }
 
-// MARK: - FooterViewDelegate
-
-extension LightboxController: FooterViewDelegate {
+// MARK: - InfoLabelDelegate
+extension LightboxController: InfoLabelDelegate {
     
-    public func footerView(_ footerView: FooterView, didExpand expanded: Bool) {
+    public func infoLabel(_ infoLabel: InfoLabel, didExpand expanded: Bool) {
+        // update gradient layer
+        _ = (expanded || infoLabel.fullText.isEmpty) ?
+        bottomGradientView.removeGradientLayer() :
+        bottomGradientView.addGradientLayer(gradientColors)
+        // update expand
+        footerView(didExpand: expanded)
+    }
+
+    private func footerView(didExpand expanded: Bool) {
         UIView.animate(withDuration: 0.25, animations: {
             self.overlayView.alpha = expanded ? 1.0 : 0.0
             self.deleteButton.alpha = expanded ? 0.0 : 1.0
         })
+    }
+}
+
+// MARK: - Helpers
+extension LightboxController {
+
+    private func expand(_ expand: Bool) {
+        expand ? infoLabel.expand() : infoLabel.collapse()
+    }
+
+    private func updatePage(_ page: Int, _ numberOfPages: Int) {
+        let text = "\(page)/\(numberOfPages)"
+
+        pageLabel.attributedText = NSAttributedString(string: text,
+                                                      attributes: LightboxConfig.PageIndicator.textAttributes)
+        pageLabel.sizeToFit()
+    }
+
+    private func updateText(_ text: String) {
+        infoLabel.fullText = text
+
+        if text.isEmpty {
+            _ = bottomGradientView.removeGradientLayer()
+        } else if !infoLabel.expanded {
+            _ = bottomGradientView.addGradientLayer(gradientColors)
+        }
+    }
+}
+
+// MARK: - LayoutConfigurable
+extension LightboxController: LayoutConfigurable {
+
+    func configureLayout() {
+        infoLabel.frame = CGRect(x: 0, y: 0, width: bottomEmbeddedStackView.frame.width - 17 * 2, height: 35)
+        infoLabel.configureLayout()
     }
 }

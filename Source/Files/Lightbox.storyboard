@@ -46,16 +46,62 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTV-I1-zj4">
+                                <rect key="frame" x="0.0" y="470" width="320" height="98"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="VPy-7D-HUY">
+                                <rect key="frame" x="0.0" y="470" width="320" height="98"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sdz-t7-Ql4">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5KJ-fg-eoc">
+                                                <rect key="frame" x="8" y="8" width="304" height="70"/>
+                                                <subviews>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v33-iO-Ud1">
+                                                        <rect key="frame" x="0.0" y="0.0" width="41.5" height="0.0"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="5KJ-fg-eoc" secondAttribute="trailing" constant="8" id="73H-ZA-UXr"/>
+                                            <constraint firstItem="5KJ-fg-eoc" firstAttribute="top" secondItem="Sdz-t7-Ql4" secondAttribute="top" constant="8" id="ORL-wV-PwA"/>
+                                            <constraint firstItem="5KJ-fg-eoc" firstAttribute="leading" secondItem="Sdz-t7-Ql4" secondAttribute="leading" constant="8" id="Vlt-eF-uOT"/>
+                                            <constraint firstAttribute="bottom" secondItem="5KJ-fg-eoc" secondAttribute="bottom" constant="20" id="nwx-5C-Hst"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="751" constant="98" id="Gda-7M-skQ"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="VPy-7D-HUY" firstAttribute="bottom" secondItem="5EZ-qb-Rvc" secondAttribute="bottom" id="09z-BO-cgk"/>
+                            <constraint firstItem="mTV-I1-zj4" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="1oA-uR-sGC"/>
                             <constraint firstItem="8Zv-vm-dcn" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="9vS-5J-uM0"/>
+                            <constraint firstItem="mTV-I1-zj4" firstAttribute="bottom" secondItem="VPy-7D-HUY" secondAttribute="bottom" id="PBW-ht-IZO"/>
+                            <constraint firstItem="mTV-I1-zj4" firstAttribute="trailing" secondItem="5EZ-qb-Rvc" secondAttribute="trailing" id="QG8-bJ-nmI"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8Zv-vm-dcn" secondAttribute="trailing" constant="20" id="fIb-nR-V51"/>
+                            <constraint firstItem="VPy-7D-HUY" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="gof-ko-E2a"/>
+                            <constraint firstItem="VPy-7D-HUY" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="jAg-2I-2Zp"/>
                             <constraint firstItem="8Zv-vm-dcn" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="4" id="lL1-9W-f4H"/>
+                            <constraint firstItem="VPy-7D-HUY" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" priority="750" constant="508" id="oOB-eT-Lwo"/>
+                            <constraint firstItem="mTV-I1-zj4" firstAttribute="top" secondItem="VPy-7D-HUY" secondAttribute="top" id="vSb-Oi-DRz"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomEmbeddedStackView" destination="5KJ-fg-eoc" id="8VG-XI-syv"/>
+                        <outlet property="bottomGradientView" destination="mTV-I1-zj4" id="gdA-Fv-JkZ"/>
+                        <outlet property="bottomStackView" destination="VPy-7D-HUY" id="4o8-Ae-dt1"/>
                         <outlet property="closeButton" destination="Jfa-if-02j" id="DwM-dR-wc5"/>
                         <outlet property="deleteButton" destination="6L3-Wv-TWB" id="BRS-M0-kE7"/>
                         <outlet property="stackView" destination="8Zv-vm-dcn" id="h3G-eK-pt3"/>
